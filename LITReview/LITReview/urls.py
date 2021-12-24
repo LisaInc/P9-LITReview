@@ -19,20 +19,21 @@ import flow.views
 import follower.views
 import authentication.views
 
-# urlpatterns = [
-#     path("admin/", admin.site.urls),
-#     path("", include(authentication.urls)),
-#     path("flow/", include(flow.urls)),
-#     path("", include(follower.urls)),
-# ]
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", authentication.views.login_page, name="login"),
-    path("signup", authentication.views.signup_page, name="signup"),
-    path("logout/", authentication.views.logout_user, name="logout"),
-    path("flow", flow.views.flow, name="flow"),
-    path("flow/form_review", flow.views.create_review, name="form_review"),
-    path("flow/form_ticket", flow.views.create_ticket, name="form_ticket"),
-    path("flow/posts", flow.views.posts, name="posts"),
-    path("followers", follower.views.followers_page, name="followers"),
+    path("", include(("authentication.urls","authentication"), namespace="authentication")),
+    path("flow/", include(("flow.urls",'flow'), namespace='flow') ),
+    path("", include(("follower.urls",'follower'), namespace='follower')),
 ]
+
+# urlpatterns = [
+#     path("admin/", admin.site.urls),
+#     path("", authentication.views.login_page, name="login"),
+#     path("signup", authentication.views.signup_page, name="signup"),
+#     path("logout/", authentication.views.logout_user, name="logout"),
+#     path("flow", flow.views.flow, name="flow"),
+#     path("flow/form_review", flow.views.create_review, name="form_review"),
+#     path("flow/form_ticket", flow.views.create_ticket, name="form_ticket"),
+#     path("flow/posts", flow.views.posts, name="posts"),
+#     path("followers", follower.views.followers_page, name="followers"),
+# ]

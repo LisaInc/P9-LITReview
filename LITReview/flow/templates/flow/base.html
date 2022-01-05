@@ -7,10 +7,11 @@
 
 <body>
     <header>
-        <h1><a href="{% url 'flow:flow' %}">Flux</a></h1>
-        <h1><a href="{% url 'flow:posts' %}">Posts</a></h1>
-        <h1><a href="{% url 'follower:followers' %}">Abonnements</a></h1>
-        <h1><a href="{% url 'authenticate:logout' %}">Se déconnecter</a></h1>
+        <h3><a href="{% url 'flow' %}">Flux</a></h3>
+        <h3><a href="{% url 'posts' %}">Posts</a></h3>
+        <h3><a href="{% url 'followers' %}">Abonnements</a></h3>
+        <h3><a href="{% url 'logout' %}">Se déconnecter</a></h3>
+
     </header>
 
     {% block content %}{% endblock %}

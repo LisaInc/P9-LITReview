@@ -1,10 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.forms import fields
 from flow.models import Ticket, Review
 
 
-class create_ticket(forms.Form):
+class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = (
@@ -14,7 +13,7 @@ class create_ticket(forms.Form):
         )
 
 
-class create_review(forms.Form):
+class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = (

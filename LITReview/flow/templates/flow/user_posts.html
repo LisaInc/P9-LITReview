@@ -1,4 +1,14 @@
 {% extends 'flow/base.html' %}
 {% block content %}
 
+<h2>Mes posts</h2>
+<div class="grid-container">
+    {% for posts in user_posts %}
+    <div class="post">
+        <h4>Post : {{ post.title }}</h4>
+        <div>{{ post.body }}</div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock content %}

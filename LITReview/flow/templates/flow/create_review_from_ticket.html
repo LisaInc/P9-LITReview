@@ -1,0 +1,17 @@
+{% extends 'flow/base.html' %}
+{% block content %}
+
+<h1>Création d'une critique</h1>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    <h4>Post : {{ ticket.title }}</h4>
+    <div>{{ ticket.body }}</div>
+    {% if ticket.img %}
+    <img src="{{ ticket.img.url }}"></a>
+    {% endif %}
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Soumettre">
+</form>
+{% endblock content %}

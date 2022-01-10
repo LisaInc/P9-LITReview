@@ -35,7 +35,16 @@ urlpatterns = [
     path("signup", authentication.views.signup_page, name="signup"),
     path("logout/", authentication.views.logout_user, name="logout"),
     path("flow", flow.views.flow, name="flow"),
-    path("flow/form_review", flow.views.create_review, name="form_review"),
+    path(
+        "flow/<int:id>/add_review/",
+        flow.views.create_review_from_ticket,
+        name="create_review_from_ticket",
+    ),
+    path(
+        "flow/create_review_from_ticket",
+        flow.views.create_review_from_ticket,
+        name="create_review_from_ticket",
+    ),
     path("flow/form_ticket/", flow.views.create_ticket, name="form_ticket"),
     path("flow/posts", flow.views.posts, name="posts"),
     path("followers", follower.views.followers_page, name="followers"),

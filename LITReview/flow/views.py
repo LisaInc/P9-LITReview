@@ -17,7 +17,7 @@ def view_ticket(request, id):
 
 
 @login_required
-def posts(request):
+def user_posts(request):
     user_tickets = models.Ticket.objects.filter(user=request.user)
     user_reviews = models.Review.objects.filter(user=request.user)
     print(len(user_reviews))
@@ -82,3 +82,35 @@ def create_review_from_ticket(request, id):
             return redirect("flow")
     context = {"form": form, "ticket": ticket}
     return render(request, "flow/create_review_from_ticket.html", context=context)
+
+
+def update_post(request, id, post_type):
+    if post_type == "Ticket":
+        post = models.Ticket.objects.get(id=id)
+    else:
+        post = models.Review.objects.get(id=id)
+    if request.method == "POST":
+        if post_type == "Ticket":
+            form = forms.TicketForm(request.POST, instance=post)
+        else:
+            form = forms.ReviewForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+    else:
+        if post_type == "Ticket":
+            form = forms.TicketForm(instance=post)
+        else:
+            form = forms.ReviewForm(instance=post)
+    return render(request, "flow/post_update.html", {"form": form})
+
+
+def delete_post(request, id, post_type):
+    if post_type == "Ticket":
+        post = models.Ticket.objects.get(id=id)
+    else:
+        post = models.Review.objects.get(id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect("posts")
+    return render(request, "flow/post_delete.html", {"post": post})

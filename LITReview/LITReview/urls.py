@@ -45,8 +45,18 @@ urlpatterns = [
         flow.views.create_review_from_ticket,
         name="create_review_from_ticket",
     ),
+    path(
+        "flow/<slug:post_type>/<int:id>/delete/",
+        flow.views.delete_post,
+        name="delete_post",
+    ),
+    path(
+        "flow/<slug:post_type>/<int:id>/update/",
+        flow.views.update_post,
+        name="update_post",
+    ),
     path("flow/form_ticket/", flow.views.create_ticket, name="form_ticket"),
-    path("flow/posts", flow.views.posts, name="posts"),
+    path("flow/posts", flow.views.user_posts, name="posts"),
     path("followers", follower.views.followers_page, name="followers"),
 ]
 

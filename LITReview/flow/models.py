@@ -11,6 +11,9 @@ class Ticket(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     has_review = models.BooleanField(default=False)
 
+    def get_class(self):
+        return "Ticket"
+
 
 class Review(models.Model):
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
@@ -21,3 +24,6 @@ class Review(models.Model):
     body = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
+
+    def get_class(self):
+        return "Review"

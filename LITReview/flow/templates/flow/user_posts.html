@@ -3,10 +3,12 @@
 
 <h2>Mes posts</h2>
 <div class="grid-container">
-    {% for posts in user_posts %}
+    {% for post in user_posts %}
     <div class="post">
         <h4>Post : {{ post.title }}</h4>
-        <div>{{ post.body }}</div>
+        <div>{{ post.get_class}}</div>
+        <a href="{% url 'update_post' post.get_class post.id %}">Éditer ce post</a>
+        <a href="{% url 'delete_post' post.get_class post.id %}">Supprimer ce post</a>
     </div>
     {% endfor %}
 </div>

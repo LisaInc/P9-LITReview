@@ -1,0 +1,13 @@
+{% extends 'flow/base.html' %}
+{% block content %}
+
+<h1>Supprimer un post</h1>
+
+<p>Validez pour supprimer ce post: {{ post.title }}</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer">
+</form>
+
+{% endblock %}

@@ -20,7 +20,6 @@ def view_ticket(request, id):
 def user_posts(request):
     user_tickets = models.Ticket.objects.filter(user=request.user)
     user_reviews = models.Review.objects.filter(user=request.user)
-    print(len(user_reviews))
     user_posts = sorted(
         chain(user_tickets, user_reviews),
         key=lambda instance: instance.time_created,
@@ -87,8 +86,10 @@ def create_review_from_ticket(request, id):
 def update_post(request, id, post_type):
     if post_type == "Ticket":
         post = models.Ticket.objects.get(id=id)
+        form = forms.TicketForm(instance=post)
     else:
         post = models.Review.objects.get(id=id)
+        form = forms.ReviewForm(instance=post)
     if request.method == "POST":
         if post_type == "Ticket":
             form = forms.TicketForm(request.POST, instance=post)
@@ -97,11 +98,6 @@ def update_post(request, id, post_type):
         if form.is_valid():
             form.save()
             return redirect("posts")
-    else:
-        if post_type == "Ticket":
-            form = forms.TicketForm(instance=post)
-        else:
-            form = forms.ReviewForm(instance=post)
     return render(request, "flow/post_update.html", {"form": form})
 
 

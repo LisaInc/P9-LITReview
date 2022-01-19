@@ -1,0 +1,28 @@
+{% extends 'follower/base.html' %}
+{% block content %}
+{% if message %}
+{{ message }}
+{% endif %}
+
+<form method="post">
+    {{ form }}
+    {% csrf_token %}
+    <button type="submit">Chercher</button>
+</form>
+<h2>Mes abonnements</h2>
+<div class="grid-container">
+    {% for user in user_followed %}
+    <div class="post">
+        <h4>Abonnements : {{ user.username }}</h4>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="grid-container">
+    {% for user in user_subscribed %}
+    <div class="post">
+        <h4>Abonnés : {{ user.username }}</h4>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

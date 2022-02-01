@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="text-center mt-5">Supprimer un post</h1>
+<h1 class="text-center mt-5">Supprimer un abonnement</h1>
 
-<p>Validez pour supprimer ce post: {{ post.title }}</p>
+<p>Validez pour supprimer {{ user.username }} de vos abonnements</p>
 
 <form action="" method="post">
     {% csrf_token %}

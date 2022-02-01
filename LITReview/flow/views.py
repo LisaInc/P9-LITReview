@@ -1,19 +1,33 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from . import forms, models
 from itertools import chain
+
+from . import forms, models
+from follower.models import UserFollows
 
 
 @login_required
 def flow(request):
-    tickets = models.Ticket.objects.all()
-    return render(request, "flow/flow.html", context={"tickets": tickets})
-
-
-@login_required
-def view_ticket(request, id):
-    ticket = get_object_or_404(models.Ticket, id=id)
-    return render(request, "flow/view_ticket.html", {"ticket": ticket})
+    user_followed = [
+        follow.followed_user for follow in UserFollows.objects.filter(user=request.user)
+    ]
+    user_followed.append(request.user)
+    tickets_without_review = models.Ticket.objects.filter(
+        user__in=user_followed, has_review=False
+    )
+    reviews = models.Review.objects.filter(user__in=user_followed)
+    posts = sorted(
+        chain(tickets_without_review, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True,
+    )
+    reviews_tickets = {review.id: review.get_ticket() for review in reviews}
+    print(reviews_tickets[reviews[0].id])
+    return render(
+        request,
+        "flow/flow.html",
+        context={"posts": posts, "reviews_tickets": reviews_tickets},
+    )
 
 
 @login_required
@@ -26,7 +40,7 @@ def user_posts(request):
         reverse=True,
     )
     context = {
-        "user_posts": user_posts,
+        "posts": user_posts,
     }
     return render(request, "flow/user_posts.html", context=context)
 

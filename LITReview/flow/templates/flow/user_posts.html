@@ -1,16 +1,18 @@
-{% extends 'flow/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
-<h2>Mes posts</h2>
-<div class="grid-container">
-    {% for post in user_posts %}
-    <div class="post">
-        <h4>Post : {{ post.title }}</h4>
-        <div>{{ post.get_class}}</div>
-        <a href="{% url 'update_post' post.get_class post.id %}">Éditer ce post</a>
-        <a href="{% url 'delete_post' post.get_class post.id %}">Supprimer ce post</a>
+<h1 class="text-center mt-5">Mes posts</h1>
+<div class="text-center mt-5">
+    {% for post in posts %}
+    <div class="text-start mt-5 mb-5">
+        {% if post.get_class == 'Ticket' %}
+        {% include 'flow/display_ticket.html'%}
+        {% elif post.get_class == 'Review' %}
+        {% include 'flow/display_review.html'%}
+        {% endif %}
+        <a href="{% url 'update_post' post.get_class post.id %}" class="btn btn-outline-dark">Éditer ce post</a>
+        <a href="{% url 'delete_post' post.get_class post.id %}" class="btn btn-outline-dark">Supprimer ce post</a>
     </div>
     {% endfor %}
 </div>
-
 {% endblock content %}

@@ -1,28 +1,39 @@
-{% extends 'follower/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-{% if message %}
-{{ message }}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
 {% endif %}
 
-<form method="post">
+
+<form method="post" class="form mt-5">
     {{ form }}
     {% csrf_token %}
     <button type="submit">Chercher</button>
 </form>
-<h2>Mes abonnements</h2>
-<div class="grid-container">
-    {% for user in user_followed %}
-    <div class="post">
-        <h4>Abonnements : {{ user.username }}</h4>
-    </div>
-    {% endfor %}
-</div>
-
-<div class="grid-container">
-    {% for user in user_subscribed %}
-    <div class="post">
-        <h4>Abonnés : {{ user.username }}</h4>
-    </div>
-    {% endfor %}
-</div>
+<h2 class="mt-5">Mes abonnements</h2>
+<table class="table">
+    <tbody>
+        {% for user in user_followed %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td><a href="{% url 'delete_follower' user.id %}">Se désabonner</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2 class="mt-5">Mes abonnés</h2>
+<table class="table">
+    <tbody>
+        {% for user in user_subscribed %}
+        <tr>
+            <td>{{ user.username }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}

@@ -27,3 +27,6 @@ class Review(models.Model):
 
     def get_class(self):
         return "Review"
+
+    def get_ticket(self):
+        return Ticket.objects.filter(id=self.ticket.id)[0]

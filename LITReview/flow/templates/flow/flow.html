@@ -1,20 +1,22 @@
-{% extends 'flow/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
-<a href="flow/form_ticket">Demander une critique</a>
-<a href="flow/create_review_and_ticket">Créer une critique</a>
 
-
-<h2>Flux</h2>
-<div class="grid-container">
-    {% for ticket in tickets %}
-    <div class="post">
-        <h4>Post : {{ ticket.title }}</h4>
-        <div>{{ ticket.body }}</div>
-        {% if ticket.img %}
-        <img src="{{ ticket.img.url }}"></a>
+<h1 class="text-center mt-5">Flux</h1>
+<div class=" text-center mt-5">
+    <a href="flow/form_ticket" class="btn btn-outline-dark">Demander une critique</a>
+    <a href="flow/create_review_and_ticket" class="btn btn-outline-dark">Créer une critique</a>
+</div>
+<div class="text-center mt-5">
+    {% for post in posts %}
+    <div class="text-start mt-5 mb-5">
+        <h3>Posté par {{ post.user.username}}:</h3>
+        {% if post.get_class == 'Ticket' %}
+        {% include 'flow/display_ticket.html'%}
+        {% if not post.has_review %}
+        <a href="{% url 'create_review_from_ticket' post.id%}" class="btn btn-outline-dark">Ajouter une critique</a>
         {% endif %}
-        {% if not ticket.has_review %}
-        <a href="{% url 'create_review_from_ticket' ticket.id%}">Ajouter une critique</a>
+        {% elif post.get_class == 'Review' %}
+        {% include 'flow/display_review.html'%}
         {% endif %}
     </div>
     {% endfor %}

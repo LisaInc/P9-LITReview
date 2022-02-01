@@ -21,14 +21,6 @@ import authentication.views
 from django.conf import settings
 from django.conf.urls.static import static
 
-
-# urlpatterns = [
-#     path("admin/", admin.site.urls),
-#     path("", include(("authentication.urls","authentication"), namespace="authentication")),
-#     path("flow/", include(("flow.urls",'flow'), namespace='flow') ),
-#     path("", include(("follower.urls",'follower'), namespace='follower')),
-# ]
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", authentication.views.login_page, name="login"),
@@ -41,9 +33,9 @@ urlpatterns = [
         name="create_review_from_ticket",
     ),
     path(
-        "flow/create_review_from_ticket",
-        flow.views.create_review_from_ticket,
-        name="create_review_from_ticket",
+        "flow/create_review_and_ticket",
+        flow.views.create_review_and_ticket,
+        name="create_review_and_ticket",
     ),
     path(
         "flow/<slug:post_type>/<int:id>/delete/",
@@ -58,6 +50,11 @@ urlpatterns = [
     path("flow/form_ticket/", flow.views.create_ticket, name="form_ticket"),
     path("flow/posts", flow.views.user_posts, name="posts"),
     path("followers", follower.views.followers_page, name="followers"),
+    path(
+        "follower/<int:id>/delete/",
+        follower.views.delete_follower,
+        name="delete_follower",
+    ),
 ]
 
 if settings.DEBUG:

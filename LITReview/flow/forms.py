@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import fields
+
 from flow.models import Ticket, Review
 
 
@@ -7,8 +7,8 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = (
-            "title",
-            "body",
+            "ticket_title",
+            "ticket_body",
             "img",
         )
 
@@ -18,6 +18,6 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = (
             "rating",
-            "title",
-            "body",
+            "review_title",
+            "review_body",
         )

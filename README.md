@@ -18,7 +18,7 @@ python3 -m venv .venv
 
 Installer Django et ses dépendance:
 
-```pip install requirement.txt```
+```pip install -r requirement.txt```
 
 À partir du dossier LITReview, pour lancer le serveur:
 

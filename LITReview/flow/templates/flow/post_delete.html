@@ -2,8 +2,11 @@
 {% block content %}
 
 <h1 class="text-center mt-5">Supprimer un post</h1>
-
-<p>Validez pour supprimer ce post: {{ post.title }}</p>
+{% if post.get_class == 'Ticket' %}
+<p>Validez pour supprimer ce post: {{ post.ticket_title }}</p>
+{% elif post.get_class == 'Review' %}
+<p>Validez pour supprimer ce post: {{ post.review_title }}</p>
+{% endif %}
 
 <form action="" method="post">
     {% csrf_token %}

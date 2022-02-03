@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Ticket(models.Model):
-    title = models.CharField(max_length=128)
-    body = models.CharField(max_length=8192, blank=True)
+    ticket_title = models.CharField(max_length=128)
+    ticket_body = models.CharField(max_length=8192, blank=True)
     img = models.ImageField(blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
@@ -20,8 +20,8 @@ class Review(models.Model):
     rating = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
-    title = models.CharField(max_length=128)
-    body = models.CharField(max_length=8192, blank=True)
+    review_title = models.CharField(max_length=128)
+    review_body = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
 
